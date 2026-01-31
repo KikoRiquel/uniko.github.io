@@ -3,25 +3,39 @@
 ---
 
 <nav>
-    <a href="/"><img src="/public/assets/logo/logo_uniko_600px.png" alt="" /></a
+    <a href="/" class="nav--logo"
+        ><img src="/assets/logo/logo_uniko.svg" alt="" /></a
     >
-    <a href="#">MENU</a>
+    <div class="nav--menu">
+        <a href="#">menu</a>
+    </div>
 </nav>
 
 <style>
     nav {
         position: fixed;
-        top: 0;
+        top: 2rem;
         left: 0;
         right: 0;
         z-index: 1000;
-        display: flex;
-        justify-content: space-between;
+
+        display: grid;
+        grid-template-columns: var(--grid-container-columns);
+        grid-template-rows: var(--grid-container-rows);
+        gap: var(--grid-container-gap);
         align-items: center;
-        padding: 1rem 2rem;
     }
 
-    img {
-        max-width: 30%;
+    .nav--logo {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        margin-left: 2rem;
+    }
+
+    .nav--menu {
+        grid-column: 8 / 9;
+        grid-row: 1 / 2;
+        justify-self: end;
+        margin-right: 2rem;
     }
 </style>

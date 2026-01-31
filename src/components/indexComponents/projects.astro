@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+
+const projectImages = import.meta.glob(
+    "../../assets/projects/uniko_projects/parcelles/*.{jpg,png,webp}",
+    { eager: true },
+);
+
+const images = Object.entries(projectImages)
+    .map(([path, image]) => {
+        const filename = path.split("/").pop() ?? "";
+
+        // Extrae el número inicial: "2-proyecto.jpg" → 2
+        const order = parseInt(filename.split("-")[0], 10);
+
+        return {
+            image,
+            order,
+        };
+    })
+    .sort((a, b) => a.order - b.order)
+    .map(({ image }) => image);
+---
+
+<section>
+    <h2>PROJECTS</h2>
+    {images.map((image: any) => <Image src={image.default} alt="" />)}
+</section>
+
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    h2 {
+        margin: 10rem 0 10rem 2rem;
+    }
+</style>
