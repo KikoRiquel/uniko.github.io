@@ -4,10 +4,14 @@
 
 <nav>
     <a href="/" class="nav--logo"
-        ><img src="/assets/logo/logo_uniko.svg" alt="" /></a
+        ><img src="/assets/logo/logo_uniko_white.svg" alt="" /></a
     >
-    <a href="/emile" class="nav--emile">emile</a>
-    <a href="/pascale" class="nav--pascale">pascale</a>
+    <a href="/emile" class="nav--emile"
+        ><span class="nav--hover-arrow">&rarr;</span> emile</a
+    >
+    <a href="/pascale" class="nav--pascale"
+        ><span class="nav--hover-arrow">&rarr;</span> pascale</a
+    >
 </nav>
 
 <style>
@@ -23,8 +27,11 @@
         grid-template-columns: var(--grid-container-columns);
         grid-template-rows: auto;
         gap: var(--grid-container-gap);
+        mix-blend-mode: difference;
+    }
 
-        height: min-content;
+    nav > * {
+        color: var(--color-white);
     }
 
     .nav--logo {
@@ -39,5 +46,19 @@
     .nav--pascale {
         grid-column: 1;
         grid-row: 3;
+    }
+
+    .nav--hover-arrow {
+        display: inline-block;
+        max-width: 0;
+        opacity: 0;
+        transition: all 0.1s ease-in-out;
+        overflow: hidden;
+    }
+
+    .nav--emile:hover .nav--hover-arrow,
+    .nav--pascale:hover .nav--hover-arrow {
+        max-width: 1.5rem;
+        opacity: 1;
     }
 </style>
