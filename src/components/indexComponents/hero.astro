@@ -12,9 +12,8 @@
 
 <style>
     main {
-        height: 100vh;
-        position: relative;
-        overflow: hidden;
+        min-height: 100vh;
+        padding: 0 var(--default-spacing-x);
 
         display: grid;
         grid-template-columns: var(--grid-container-columns);
@@ -44,7 +43,7 @@
         grid-row: 1;
         align-self: end;
         text-align: right;
-        padding: 0 2rem 2rem 0;
+        padding-bottom: var(--default-spacing-y);
     }
 </style>
 

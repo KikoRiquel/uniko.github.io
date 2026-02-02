@@ -8,8 +8,11 @@
 }
 
 :root {
-    
+
     --grid-container-columns: repeat(8, 1fr);
     --grid-container-rows: repeat(1, 1fr);
     --grid-container-gap: 2rem;
+
+    --default-spacing-x: 2rem;
+    --default-spacing-y: 2rem;
 }
