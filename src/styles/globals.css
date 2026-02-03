@@ -8,11 +8,12 @@
 }
 
 :root {
+    --default-clamp-size: clamp(1rem, 0.2941rem + 1.5686vw, 2rem);
 
     --grid-container-columns: repeat(8, 1fr);
     --grid-container-rows: repeat(1, 1fr);
-    --grid-container-gap: 2rem;
+    --grid-container-gap: var(--default-clamp-size);
 
-    --default-spacing-x: 2rem;
-    --default-spacing-y: 2rem;
+    --default-spacing-x: var(--default-clamp-size);
+    --default-spacing-y: var(--default-clamp-size);
 }
