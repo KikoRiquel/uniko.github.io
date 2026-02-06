@@ -1,0 +1,42 @@
+---
+
+---
+
+<section>
+    <!-- <img src="/assets/logo/logo_uniko.svg" alt="" /> -->
+    <h2>about</h2>
+    <p>
+        Uniko studio is a design studio based in England. We work with emerging
+        and established companies to deliver compelling brand experiences. Our
+        approach is as strategic as it is visually driven.
+    </p>
+    <p>
+        We work with a diverse selection of clients, from start-ups to
+        established companies. Like us, our clients believe in the power of
+        branding and design. Our clients also want to make an impact – to do
+        better, be better and help install a brighter future for the people
+        around them.
+    </p>
+</section>
+
+<style>
+    section {
+        display: grid;
+        grid-template-columns: var(--grid-container-columns);
+        grid-template-rows: var(--grid-container-rows);
+        gap: var(--grid-container-gap);
+
+        padding: calc(var(--default-spacing-y) * 4) var(--default-spacing-x);
+        line-height: calc(var(--default-spacing-y) * 1.2);
+    }
+
+    h2 {
+        grid-column: 1;
+    }
+
+    p {
+        grid-column: 3 / 7;
+        align-self: center;
+        justify-self: center;
+    }
+</style>

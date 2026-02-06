@@ -1,47 +1,25 @@
 ---
-import { Image } from "astro:assets";
-
-const projectImages = import.meta.glob(
-    "../../assets/projects/uniko_projects/parcelles/*.{jpg,png,webp}",
-    { eager: true },
+const parcellesImages = import.meta.glob(
+    "/src/assets/projects/uniko_projects/parcelles/*.{jpg,png,webp}",
+    { eager: true, as: "url" },
 );
 
-const images = Object.entries(projectImages)
-    .map(([path, image]) => {
-        const filename = path.split("/").pop() ?? "";
+const boiresImages = import.meta.glob(
+    "/src/assets/projects/uniko_projects/boires/*.{jpg,png,webp}",
+    { eager: true, as: "url" },
+);
 
-        // Extrae el número inicial: "2-proyecto.jpg" → 2
-        const order = parseInt(filename.split("-")[0], 10);
+const orderedImages = (projectImages) => {
+    return Object.entries(projectImages)
+        .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+        .map(([, url]) => url);
+};
 
-        return {
-            image,
-            order,
-        };
-    })
-    .sort((a, b) => a.order - b.order)
-    .map(({ image }) => image);
+const parcellesOrderedImages = orderedImages(parcellesImages);
+const boiresOrderedImages = orderedImages(boiresImages);
 ---
 
 <section>
-    <h2>PROJECTS</h2>
-    {images.map((image: any) => <Image src={image.default} alt="" />)}
+    {parcellesOrderedImages.map((image) => <img src={image} alt="" />)}
+    {boiresOrderedImages.map((image) => <img src={image} alt="" />)}
 </section>
-
-<style>
-    section {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        z-index: 1;
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    h2 {
-        margin: 10rem 0 10rem 2rem;
-    }
-</style>
