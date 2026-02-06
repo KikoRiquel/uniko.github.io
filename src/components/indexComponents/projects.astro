@@ -1,25 +1,28 @@
 ---
-const parcellesImages = import.meta.glob(
+import { getProjectImages } from "@/lib/getProyectImages.ts";
+
+const parcellesGlob = import.meta.glob(
     "/src/assets/projects/uniko_projects/parcelles/*.{jpg,png,webp}",
     { eager: true, as: "url" },
 );
 
-const boiresImages = import.meta.glob(
+const boiresGlob = import.meta.glob(
     "/src/assets/projects/uniko_projects/boires/*.{jpg,png,webp}",
     { eager: true, as: "url" },
 );
 
-const orderedImages = (projectImages) => {
-    return Object.entries(projectImages)
-        .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
-        .map(([, url]) => url);
-};
+const studioGlob = import.meta.glob(
+    "/src/assets/projects/uniko_projects/studio/*.{jpg,png,webp}",
+    { eager: true, as: "url" },
+);
 
-const parcellesOrderedImages = orderedImages(parcellesImages);
-const boiresOrderedImages = orderedImages(boiresImages);
+const parcellesImages = getProjectImages(parcellesGlob);
+const boiresImages = getProjectImages(boiresGlob);
+const studioImages = getProjectImages(studioGlob);
 ---
 
 <section>
-    {parcellesOrderedImages.map((image) => <img src={image} alt="" />)}
-    {boiresOrderedImages.map((image) => <img src={image} alt="" />)}
+    {parcellesImages.map((image) => <img src={image} alt="" />)}
+    {boiresImages.map((image) => <img src={image} alt="" />)}
+    {studioImages.map((image) => <img src={image} alt="" />)}
 </section>
