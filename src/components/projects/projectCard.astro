@@ -1,0 +1,28 @@
+---
+// src/components/projects/ProjectCard.astro
+import { Image } from "astro:assets";
+import type { ProjectID } from "@/data/projects";
+
+interface Props {
+  id: ProjectID;
+  title: string;
+  coverImage: any;
+}
+
+const { id, title, coverImage } = Astro.props;
+---
+<article class="project-card" data-project-id={id}>
+  <Image src={coverImage} alt={title} />
+</article>
+
+<style>
+  .project-card {
+    cursor: none; /* Dejamos que el pill haga de cursor */
+    width: 100%;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

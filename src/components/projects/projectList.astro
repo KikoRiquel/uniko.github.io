@@ -1,0 +1,125 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import ProjectGallery from "./ProjectGallery.astro";
+import { PROJECTS } from "@/data/projects";
+
+interface Props {
+    owner: "UNIKO" | "Pascale" | "Emile";
+}
+const { owner } = Astro.props;
+
+const filteredProjects = PROJECTS.filter((p) => p.owner === owner);
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+    `/src/assets/projects/**/*.{png,webp,jpg}`,
+    { eager: true },
+);
+
+// Función para encontrar la portada (imagen que empieza por 1-)
+const getCover = (id: string) => {
+    const path = Object.keys(allImages).find((key) =>
+        key.includes(`${id}/01-`),
+    );
+    return allImages[path!]?.default;
+};
+---
+
+<section class="projects-container">
+    <div id="project-cursor" class="cursor-pill">open project!</div>
+
+    <div class="grid">
+        {
+            filteredProjects.map((p) => (
+                <ProjectCard
+                    id={p.id}
+                    title={p.title}
+                    coverImage={getCover(p.id)}
+                />
+            ))
+        }
+    </div>
+
+    <ProjectGallery />
+</section>
+
+<script>
+    import gsap from "gsap";
+
+    // Inicializar elementos
+    const dialog = document.querySelector(
+        "#project-dialog",
+    ) as HTMLDialogElement;
+    const galleryContent = document.querySelector("#modal-gallery-content");
+    const cards = document.querySelectorAll(".project-card");
+
+    // Glob para carga dinámica (lazy) de las galerías
+    const galleryAssets = import.meta.glob(
+        "/src/assets/projects/**/*.{jpg,png,webp}",
+        { as: "url" },
+    );
+
+    // --- LÓGICA DE GALERÍA ---
+    async function handleOpenProject(id: string) {
+        if (!galleryContent) return;
+        galleryContent.innerHTML = ""; // Limpiar previo
+
+        const imagesPath = Object.keys(galleryAssets)
+            .filter((p) => p.includes(`/${id}/`))
+            .sort();
+
+        for (const path of imagesPath) {
+            const url = (await galleryAssets[path]()) as string; // Ahora mod es directamente el string
+            const img = document.createElement("img");
+            img.src = url;
+            galleryContent.appendChild(img);
+        }
+        dialog.showModal();
+    }
+
+    cards.forEach((card) => {
+        card.addEventListener("click", () => {
+            const id = card.getAttribute("data-project-id");
+            if (id) handleOpenProject(id);
+        });
+    });
+
+    document
+        .querySelector("#close-dialog")
+        ?.addEventListener("click", () => dialog.close());
+
+    // --- LÓGICA DE CURSOR (GSAP) ---
+    const pill = document.querySelector("#project-cursor");
+    if (pill) {
+        const xTo = gsap.quickTo(pill, "x", { duration: 0.6, ease: "power3" });
+        const yTo = gsap.quickTo(pill, "y", { duration: 0.6, ease: "power3" });
+
+        window.addEventListener("mousemove", (e) => {
+            xTo(e.clientX);
+            yTo(e.clientY);
+        });
+    }
+</script>
+
+<style>
+    .projects-container {
+        position: relative;
+        cursor: url("/src/assets/cursors/projects-cursor.svg"), default;
+    }
+    .grid {
+        display: flex;
+        flex-direction: column;
+    }
+    .cursor-pill {
+        display: none;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        z-index: 100;
+        transform: translate(-50%, -50%); /* Centrar el pill en el mouse */
+    }
+</style>
