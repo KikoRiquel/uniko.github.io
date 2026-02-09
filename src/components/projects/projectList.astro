@@ -46,11 +46,7 @@ const getCover = (id: string) => {
     import gsap from "gsap";
 
     // Inicializar elementos
-    const dialog = document.querySelector(
-        "#project-dialog",
-    ) as HTMLDialogElement;
-    const galleryContent = document.querySelector("#modal-gallery-content");
-    const cards = document.querySelectorAll(".project-card");
+    const previews = document.querySelectorAll(".project-preview");
 
     // Glob para carga dinámica (lazy) de las galerías
     const galleryAssets = import.meta.glob(
@@ -58,34 +54,26 @@ const getCover = (id: string) => {
         { as: "url" },
     );
 
-    // --- LÓGICA DE GALERÍA ---
-    async function handleOpenProject(id: string) {
-        if (!galleryContent) return;
-        galleryContent.innerHTML = ""; // Limpiar previo
+    previews.forEach((preview) => {
+        preview.addEventListener("click", async () => {
+            const id = preview.getAttribute("data-project-id");
+            if (!id) return;
 
-        const imagesPath = Object.keys(galleryAssets)
-            .filter((p) => p.includes(`/${id}/`))
-            .sort();
+            const imagesPath = Object.keys(galleryAssets)
+                .filter((p) => p.includes(`/${id}/`))
+                .sort();
 
-        for (const path of imagesPath) {
-            const url = (await galleryAssets[path]()) as string; // Ahora mod es directamente el string
-            const img = document.createElement("img");
-            img.src = url;
-            galleryContent.appendChild(img);
-        }
-        dialog.showModal();
-    }
+            const promises = imagesPath.map((path) => galleryAssets[path]());
+            // @ts-ignore
+            const urls = await Promise.all(promises);
 
-    cards.forEach((card) => {
-        card.addEventListener("click", () => {
-            const id = card.getAttribute("data-project-id");
-            if (id) handleOpenProject(id);
+            // @ts-ignore
+            if (window.openProjectGallery) {
+                // @ts-ignore
+                window.openProjectGallery(urls);
+            }
         });
     });
-
-    document
-        .querySelector("#close-dialog")
-        ?.addEventListener("click", () => dialog.close());
 
     // --- LÓGICA DE CURSOR (GSAP) ---
     const pill = document.querySelector("#project-cursor");
@@ -110,9 +98,7 @@ const getCover = (id: string) => {
         flex-direction: column;
     }
     .cursor-pill {
-        display: none;
-
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         pointer-events: none;

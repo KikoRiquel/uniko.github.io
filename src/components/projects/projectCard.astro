@@ -11,13 +11,13 @@ interface Props {
 
 const { id, title, coverImage } = Astro.props;
 ---
-<article class="project-card" data-project-id={id}>
+
+<article class="project-preview" data-project-id={id}>
   <Image src={coverImage} alt={title} />
 </article>
 
 <style>
   .project-card {
-    cursor: none; /* Dejamos que el pill haga de cursor */
     width: 100%;
   }
   img {
