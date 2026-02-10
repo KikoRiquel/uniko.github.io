@@ -21,11 +21,14 @@
         right: 0;
         z-index: 1000;
         padding: 0 var(--default-spacing-x);
+        width: calc(max-content + var(--default-spacing-x));
 
-        display: grid;
-        grid-template-columns: var(--grid-container-columns);
-        grid-template-rows: auto;
-        gap: var(--grid-container-gap);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--default-spacing-y);
+
         mix-blend-mode: difference;
     }
 
@@ -35,6 +38,7 @@
 
     .nav--logo {
         width: 100%;
+        max-width: 10rem;
     }
 
     .nav--emile {
