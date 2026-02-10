@@ -1,0 +1,46 @@
+---
+const services = [
+    "brand strategy",
+    "digital design",
+    "web design",
+    "brand experience",
+];
+
+interface Props {
+    classNames?: string;
+}
+
+const { classNames } = Astro.props;
+---
+
+<form action="submit" class={classNames}>
+    <div>
+        <p>i'm interested in...</p>
+        {
+            services.map((service) => {
+                return (
+                    <div class="contact--service">
+                        <input type="checkbox" name={service} id={service} />
+                        <label for={service}>{service}</label>
+                    </div>
+                );
+            })
+        }
+    </div>
+</form>
+
+<style>
+    .contact--service {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 2rem;
+
+        label {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-red);
+            padding: 1rem;
+        }
+    }
+</style>
