@@ -77,21 +77,34 @@ const getCover = (id: string) => {
 
     // --- LÓGICA DE CURSOR (GSAP) ---
     const pill = document.querySelector("#project-cursor");
-    if (pill) {
-        const xTo = gsap.quickTo(pill, "x", { duration: 0.6, ease: "power3" });
-        const yTo = gsap.quickTo(pill, "y", { duration: 0.6, ease: "power3" });
+    const container = document.querySelector(".projects-container");
 
-        window.addEventListener("mousemove", (e) => {
-            xTo(e.clientX);
-            yTo(e.clientY);
-        });
-    }
+    const xTo = gsap.quickTo(pill, "x", { duration: 0.6, ease: "power3" });
+    const yTo = gsap.quickTo(pill, "y", { duration: 0.6, ease: "power3" });
+
+    container.addEventListener("mousemove", (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left + 50;
+        const y = e.clientY - rect.top - 50;
+
+        xTo(x);
+        yTo(y);
+    });
+
+    container.addEventListener("mouseleave", () => {
+        gsap.to(pill, { opacity: 0 });
+    });
+
+    container.addEventListener("mouseenter", () => {
+        gsap.to(pill, { opacity: 1 });
+    });
 </script>
 
 <style>
     .projects-container {
         position: relative;
         cursor: url("/src/assets/cursors/projects-cursor.svg"), default;
+        overflow-x: hidden;
     }
     .grid {
         display: flex;
@@ -106,6 +119,6 @@ const getCover = (id: string) => {
         padding: 0.5rem 1.5rem;
         border-radius: 20px;
         z-index: 100;
-        transform: translate(-50%, -50%); /* Centrar el pill en el mouse */
+        opacity: 0;
     }
 </style>
