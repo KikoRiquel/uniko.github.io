@@ -27,7 +27,12 @@
     --font-neutral: 'NeutralFace', sans-serif;
 }
 
-body {
+body,
+input,
+textarea,
+input::placeholder,
+textarea::placeholder,
+button {
     font-family: var(--font-bricolage);
     font-size: var(--default-clamp-size);
     font-weight: 900;

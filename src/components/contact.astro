@@ -14,33 +14,104 @@ const { classNames } = Astro.props;
 ---
 
 <form action="submit" class={classNames}>
-    <div>
-        <p>i'm interested in...</p>
-        {
-            services.map((service) => {
-                return (
-                    <div class="contact--service">
-                        <input type="checkbox" name={service} id={service} />
-                        <label for={service}>{service}</label>
-                    </div>
-                );
-            })
-        }
+    <div class="contact--services">
+        <p>I'm interested in...</p>
+        <div class="contact--service-container">
+            {
+                services.map((service) => {
+                    return (
+                        <div class="contact--service">
+                            <input
+                                type="checkbox"
+                                name={service}
+                                id={service}
+                                hidden
+                            />
+                            <label for={service}>{service}</label>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+    <div class="contact--form">
+        <input type="text" name="name" id="name" placeholder="NAME" />
+        <input type="email" name="email" id="email" placeholder="EMAIL" />
+        <textarea name="message" id="message" placeholder="MESSAGE"></textarea>
+        <button type="submit">let's rock</button>
     </div>
 </form>
 
 <style>
-    .contact--service {
-        display: inline-flex;
+    .contact--services {
+        margin-bottom: 3rem;
+        p {
+            margin-bottom: 0.5rem;
+        }
+    }
+    .contact--service-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
+        gap: 1rem;
+    }
 
-        gap: 2rem;
+    .contact--service {
+        display: flex;
 
         label {
-            width: 100%;
-            height: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: max-content;
+            min-height: 2.5rem;
+            padding: 0.5rem 1.5rem;
+
+            cursor: pointer;
+            border: 2px solid var(--color-black);
+            border-radius: 100vw;
+            transition: all 0.2s ease;
+        }
+
+        input:checked + label {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+    }
+    .contact--form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        input,
+        textarea {
+            padding: 0.5rem 1.5rem;
+            border-bottom: 2px solid var(--color-black);
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        input::placeholder,
+        textarea::placeholder {
+            opacity: 0.6;
+        }
+    }
+    button {
+        width: 50%;
+        margin-top: 2rem;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--color-red);
+        color: var(--color-red);
+        background-color: var(--color-white);
+        border-radius: 100vw;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
             background-color: var(--color-red);
-            padding: 1rem;
+            color: var(--color-white);
         }
     }
 </style>
