@@ -75,36 +75,39 @@ const getCover = (id: string) => {
         });
     });
 
+    import { mouseFollower } from "@/lib/mouseFollower";
+    mouseFollower("#project-cursor", ".projects-container");
+
     // --- LÓGICA DE CURSOR (GSAP) ---
-    const pill = document.querySelector("#project-cursor");
-    const container = document.querySelector(".projects-container");
+    // const pill = document.querySelector("#project-cursor");
+    // const container = document.querySelector(".projects-container");
 
-    const xTo = gsap.quickTo(pill, "x", { duration: 0.6, ease: "power3" });
-    const yTo = gsap.quickTo(pill, "y", { duration: 0.6, ease: "power3" });
+    // const xTo = gsap.quickTo(pill, "x", { duration: 0.6, ease: "power3" });
+    // const yTo = gsap.quickTo(pill, "y", { duration: 0.6, ease: "power3" });
 
-    container.addEventListener("mousemove", (e) => {
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left + 50;
-        const y = e.clientY - rect.top - 50;
+    // container.addEventListener("mousemove", (e) => {
+    //     const rect = container.getBoundingClientRect();
+    //     const x = e.clientX - rect.left + 50;
+    //     const y = e.clientY - rect.top - 50;
 
-        xTo(x);
-        yTo(y);
-    });
+    //     xTo(x);
+    //     yTo(y);
+    // });
 
-    container.addEventListener("mouseleave", () => {
-        gsap.to(pill, { opacity: 0 });
-    });
+    // container.addEventListener("mouseleave", () => {
+    //     gsap.to(pill, { opacity: 0 });
+    // });
 
-    container.addEventListener("mouseenter", () => {
-        gsap.to(pill, { opacity: 1 });
-    });
+    // container.addEventListener("mouseenter", () => {
+    //     gsap.to(pill, { opacity: 1 });
+    // });
 </script>
 
 <style>
     .projects-container {
         position: relative;
         cursor: url("/src/assets/cursors/projects-cursor.svg"), default;
-        overflow-x: hidden;
+        overflow: hidden;
     }
     .grid {
         display: flex;
@@ -115,9 +118,9 @@ const getCover = (id: string) => {
         top: 0;
         left: 0;
         pointer-events: none;
-        background: white;
+        background: var(--color-white);
         padding: 0.5rem 1.5rem;
-        border-radius: 20px;
+        border-radius: 100vw;
         z-index: 100;
         opacity: 0;
     }

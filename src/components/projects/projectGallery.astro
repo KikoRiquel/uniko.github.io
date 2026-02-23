@@ -6,6 +6,7 @@
   <!-- <div class="modal-controls">
     <button id="close-dialog">CERRAR</button>
   </div> -->
+
   <div class="dialog-minimap"></div>
   <div class="dialog-gallery" id="modal-gallery-content"></div>
 </dialog>
@@ -59,7 +60,7 @@
   window.openProjectGallery = (images: string[]) => {
     if (!galleryContent || !dialog) return;
 
-    galleryContent.innerHTML = ""; 
+    galleryContent.innerHTML = "";
 
     images.forEach((url) => {
       const img = document.createElement("img");
