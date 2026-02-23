@@ -3,20 +3,35 @@
 ---
 
 <main>
-    <!-- <div>
-        <canvas id="canvas"></canvas>
-    </div> -->
-    <!-- <div class="logo--container">
+    <div class="main--container">
         <img src="/assets/logo/logo_uniko.svg" alt="" />
-    </div> -->
-    <img src="/assets/logo/logo_uniko.svg" alt="" />
-    <h1>GRAPHIC DESIGN STUDIO <br /> BASED IN UK</h1>
+        <h1><span>GRAPHIC DESIGN STUDIO</span> <br /> BASED IN UK</h1>
+    </div>
+    <div class="main--canva-container">
+        <canvas id="canvas"></canvas>
+    </div>
 </main>
 
 <style>
-    main,
-    .logo--container {
+    main {
         min-height: 100vh;
+        padding: 0 var(--default-spacing-x);
+        position: relative;
+    }
+
+    .main--canva-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+
+        overflow: hidden;
+    }
+
+    .main--container {
+        height: 100vh;
         padding: 0 var(--default-spacing-x);
 
         display: grid;
@@ -25,19 +40,6 @@
         gap: var(--grid-container-gap);
     }
 
-    /* div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    } */
-
-    /* .logo--container {
-        position: fixed;
-        z-index: 0;
-    } */
     img {
         width: 100%;
         grid-column: 3 / 7;
@@ -52,24 +54,42 @@
         align-self: end;
         text-align: right;
         padding-bottom: var(--default-spacing-y);
+
+        span {
+            color: var(--color-red);
+        }
     }
 </style>
 
-<!-- <script>
-    /**
-     * Script de Estela de Dibujo Progresiva
-     * Color: #c72b2b
-     * Comportamiento: Limpieza continua por la cola
-     */
+<script>
+    import { addIssueToContext } from "astro:schema";
+    import { gsap } from "gsap";
+    import { SplitText } from "gsap/SplitText";
 
+    gsap.registerPlugin(SplitText);
+
+    const span = document.querySelector("h1 span") as HTMLElement;
+    const split = new SplitText(span, { type: "chars" });
+
+    span.addEventListener("mouseenter", () => {
+        gsap.to(split.chars, {
+            scale: 1.6,
+        });
+    });
+    span.addEventListener("mouseleave", () => {
+        gsap.to(split.chars, {
+            scale: 1,
+        });
+    });
+</script>
+
+<script>
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
 
     let points = [];
-    // Ajusta este número: más alto = estela más larga para escribir más.
     const MAX_POINTS = 5000;
 
-    // Ajustar el lienzo al tamaño de la ventana
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -78,23 +98,17 @@
     window.addEventListener("resize", resize);
     resize();
 
-    // Capturar las coordenadas del ratón
     window.addEventListener("mousemove", (e) => {
         points.push({ x: e.clientX, y: e.clientY });
     });
 
     function animate() {
-        // Limpiamos el lienzo para redibujar la línea en su nueva posición
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // LOGICA DE LIMPIEZA PROGRESIVA:
-        // Si la cantidad de puntos supera el límite, quitamos el más antiguo (la cola)
         if (points.length > MAX_POINTS) {
             points.shift();
         }
 
-        // También eliminamos un punto por frame aunque el mouse no se mueva
-        // para que la línea termine desapareciendo del todo si dejas de dibujar.
         if (points.length > 0) {
             points.shift();
         }
@@ -102,16 +116,14 @@
         if (points.length > 1) {
             ctx.beginPath();
 
-            // Estilo de la línea
             ctx.strokeStyle = "#c72b2b";
             ctx.lineWidth = 10;
-            ctx.lineCap = "round"; // Puntas redondeadas
-            ctx.lineJoin = "round"; // Uniones suaves al girar
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
 
             ctx.moveTo(points[0].x, points[0].y);
 
             for (let i = 1; i < points.length; i++) {
-                // Dibujamos la conexión entre puntos
                 ctx.lineTo(points[i].x, points[i].y);
             }
 
@@ -121,6 +133,5 @@
         requestAnimationFrame(animate);
     }
 
-    // Iniciar la animación
     animate();
-</script> -->
+</script>
