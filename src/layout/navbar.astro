@@ -1,17 +1,30 @@
 ---
-const navLinks = [
-    { href: "/emile", label: "Emile", className: "nav--emile" },
-    { href: "/pascale", label: "Pascale", className: "nav--pascale" },
+let navLinks = [
+    {
+        href: "/emile",
+        label: "Emile",
+        className: "nav--emile",
+    },
+    {
+        href: "/pascale",
+        label: "Pascale",
+        className: "nav--pascale",
+    },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav>
     <a href="/" class="nav--logo"
-        ><img src="/assets/logo/logo_uniko_white.svg" alt="" /></a
+        ><img src="/assets/logo/logo_uniko.svg" alt="" /></a
     >
     {
         navLinks.map((link) => (
-            <a href={link.href} class={link.className}>
+            <a
+                href={link.href}
+                class={`${link.className} ${currentPath === link.href ? "active--link" : ""}`}
+            >
                 <span class="nav--hover-arrow">&rarr;</span> {link.label}
             </a>
         ))
@@ -38,11 +51,16 @@ const navLinks = [
         align-items: flex-start;
         gap: var(--default-spacing-y);
 
-        mix-blend-mode: difference;
+        /* mix-blend-mode: difference; */
     }
 
     nav > * {
-        color: var(--color-white);
+        /* color: var(--color-white); */
+        color: var(--color-black);
+
+        &.active--link {
+            color: var(--color-red);
+        }
     }
 
     .nav--logo {
