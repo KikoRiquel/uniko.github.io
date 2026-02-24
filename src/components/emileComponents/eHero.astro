@@ -1,61 +1,26 @@
 ---
-
+import EmileSvgComponent from "@/assets/svg/emileSvgComponent.astro";
 ---
 
-<main class="emile--hero">
+<section class="emile--hero">
     <div class="emile--hero--container">
-        <img src="/assets/logo/logo_uniko.svg" alt="" />
+        <EmileSvgComponent />
     </div>
-    <div class="emile--hero--canva-container">
-        <canvas id="canvas"></canvas>
-    </div>
-</main>
+</section>
 
 <style>
     .emile--hero {
         min-height: 100vh;
         padding: 0 var(--default-spacing-x);
-        position: relative;
-    }
-
-    .emile--hero--canva-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-
-        overflow: hidden;
     }
 
     .emile--hero--container {
         height: 100vh;
-        padding: 0 var(--default-spacing-x);
-
-        display: grid;
-        grid-template-columns: var(--grid-container-columns);
-        grid-template-rows: var(--grid-container-rows);
-        gap: var(--grid-container-gap);
-    }
-
-    img {
         width: 100%;
-        grid-column: 3 / 7;
-        grid-row: 1;
-        align-self: center;
-        justify-self: center;
-    }
-
-    h1 {
-        grid-column: 7 / 9;
-        grid-row: 1;
-        align-self: end;
-        text-align: right;
-        padding-bottom: var(--default-spacing-y);
-
-        span {
-            color: var(--color-red);
-        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
+
+

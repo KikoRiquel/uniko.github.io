@@ -2,6 +2,7 @@
 import "@/styles/globals.css";
 import Navbar from "@/layout/navbar.astro";
 import Footer from "@/layout/footer.astro";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
     title?: string;
@@ -12,6 +13,7 @@ const { title = "Uniko" } = Astro.props;
 
 <html lang="en">
     <head>
+        <!-- <ViewTransitions /> -->
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
