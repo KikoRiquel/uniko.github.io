@@ -1,0 +1,55 @@
+---
+
+---
+
+<section class="about--section">
+    <h2>about</h2>
+    <p>
+        Pascale Alie-Crête masters brand storytelling through elite editorial
+        design. Her structural precision transforms complex information into
+        sophisticated, functional visual experiences, ensuring flawless
+        communication that projects immediate authority and echoes your
+        company’s ambitions.
+    </p>
+
+    <p>
+        As a strategic guide, Pascale uses empathetic communication to simplify
+        your decision-making process and eliminate unnecessary visual noise.
+        Her collaborative approach places your business objectives at the heart
+        of the narrative, creating a transparent dialogue that turns technical
+        complexity into a competitive advantage for your company.
+    </p>
+</section>
+
+<style>
+    .about--section {
+        display: grid;
+        grid-template-columns: var(--grid-container-columns);
+        grid-template-rows: var(--grid-container-rows);
+        gap: var(--grid-container-gap);
+
+        padding: calc(var(--default-spacing-y) * 4) var(--default-spacing-x);
+        line-height: calc(var(--default-spacing-y) * 1.2);
+    }
+
+    h2 {
+        grid-column: 2;
+        height: min-content;
+        text-align: center;
+        position: sticky;
+        top: 0;
+    }
+
+    p {
+        grid-column: 4 / 9;
+        align-self: center;
+        justify-self: center;
+    }
+</style>
+
+<script>
+    const h2 = document.querySelector("h2") as HTMLElement;
+    const pascaleNav = document.querySelector(".nav--pascale") as HTMLElement;
+
+    h2.style.setProperty("top", pascaleNav.getBoundingClientRect().top + "px");
+</script>

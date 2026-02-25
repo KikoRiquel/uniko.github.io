@@ -32,6 +32,11 @@
 
     h2 {
         grid-column: 2;
+height: min-content;
+        text-align: center;
+        position: sticky;
+        top: 0;
+
     }
 
     p {
@@ -40,3 +45,9 @@
         justify-self: center;
     }
 </style>
+<script>
+    const h2 = document.querySelector("h2") as HTMLElement;
+    const navLogo = document.querySelector(".nav--logo") as HTMLElement;
+
+    h2.style.setProperty("top", navLogo.getBoundingClientRect().top + "px");
+</script>

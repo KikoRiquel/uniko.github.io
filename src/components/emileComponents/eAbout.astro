@@ -1,0 +1,52 @@
+---
+
+---
+
+<section class="about--section">
+    <h2>about</h2>
+    <p>
+        Emile Lord Ayotte merges strategic flexibility with distinctive
+        typography. His adaptability transforms complex problems into
+        high-impact visual solutions, ensuring a unique brand identity that
+        projects authority and maximizes your efficiency.
+    </p>
+    <p>
+        His previous experience demonstrates a creative flexibility that allows
+        him to reframe complex problems into high-impact graphic solutions,
+        where typographic architecture becomes a key tool in building a
+        distinctive and memorable visual signature.
+    </p>
+</section>
+
+<style>
+    .about--section {
+        display: grid;
+        grid-template-columns: var(--grid-container-columns);
+        grid-template-rows: var(--grid-container-rows);
+        gap: var(--grid-container-gap);
+
+        padding: calc(var(--default-spacing-y) * 4) var(--default-spacing-x);
+        line-height: calc(var(--default-spacing-y) * 1.2);
+    }
+
+    h2 {
+        grid-column: 2;
+        height: min-content;
+        text-align: center;
+        position: sticky;
+        top: 0;
+    }
+
+    p {
+        grid-column: 4 / 9;
+        align-self: center;
+        justify-self: center;
+    }
+</style>
+
+<script>
+    const h2 = document.querySelector("h2") as HTMLElement;
+    const emileNav = document.querySelector(".nav--emile") as HTMLElement;
+
+    h2.style.setProperty("top", emileNav.getBoundingClientRect().top + "px");
+</script>

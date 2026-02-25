@@ -139,8 +139,7 @@
     gsap.registerPlugin(Draggable, InertiaPlugin);
 
     Draggable.create("rect", {
-        inertia: true,
-        bounds: ".emile--hero-container",
-        throwProps: true,
+        type: "x",
+        bounds: ".emile--hero--container",
     });
 </script>

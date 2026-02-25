@@ -1,0 +1,24 @@
+---
+import EmileSvgComponent from "@/assets/svg/emileSvgComponent.astro";
+---
+
+<section class="emile--hero">
+    <div class="emile--hero--container">
+        <EmileSvgComponent />
+    </div>
+</section>
+
+<style>
+    .emile--hero {
+        min-height: 100vh;
+        padding: 0 var(--default-spacing-x);
+    }
+
+    .emile--hero--container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
