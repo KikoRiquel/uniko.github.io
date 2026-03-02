@@ -1,12 +1,12 @@
 ---
 let navLinks = [
     {
-        href: "/emile",
+        href: "/emile/",
         label: "Emile",
         className: "nav--emile",
     },
     {
-        href: "/pascale",
+        href: "/pascale/",
         label: "Pascale",
         className: "nav--pascale",
     },
@@ -43,6 +43,10 @@ const currentPath = Astro.url.pathname;
 
         a {
             padding-right: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            align-content: center;
         }
 
         display: flex;
@@ -84,6 +88,7 @@ const currentPath = Astro.url.pathname;
         opacity: 0;
         transition: all 0.1s ease-in-out;
         overflow: hidden;
+        text-align: center;
     }
 
     .nav--emile:hover .nav--hover-arrow,
@@ -92,21 +97,3 @@ const currentPath = Astro.url.pathname;
         opacity: 1;
     }
 </style>
-<!-- 
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to("nav", {
-        opacity: 1,
-        duration: 0.3,
-        scrollTrigger: {
-            trigger: ".main--container h1 span",
-            start: "top top",
-            end: "bottom top",
-            markers: true,
-        },
-    });
-</script> -->

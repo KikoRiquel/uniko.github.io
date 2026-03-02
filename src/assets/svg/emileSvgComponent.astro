@@ -139,6 +139,14 @@
 
     gsap.registerPlugin(Draggable, InertiaPlugin);
 
+    const firtsRect = document.querySelector("rect");
+
+    gsap.from(firtsRect, {
+        x: -200,
+        duration: 1,
+        ease: "power1.out",
+    });
+
     Draggable.create("rect", {
         type: "x",
         bounds: ".emile--hero--container",

@@ -5,7 +5,7 @@
 <main>
     <div class="main--container">
         <img src="/assets/logo/logo_uniko.svg" alt="" />
-        <h1><span>GRAPHIC DESIGN STUDIO</span> <br /> BASED IN UK</h1>
+        <h1><span>GRAPHIC DESIGN</span> <br /> BASED IN UK</h1>
     </div>
     <div class="main--canva-container">
         <canvas id="canvas"></canvas>
@@ -87,7 +87,7 @@
     const ctx = canvas.getContext("2d");
 
     let points = [];
-    const MAX_POINTS = 5000;
+    const MAX_POINTS = 300;
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -102,19 +102,13 @@
     });
 
     function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(255, 255, 255, 1.00)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        if (points.length > MAX_POINTS) {
-            points.shift();
-        }
-
-        if (points.length > 0) {
-            points.shift();
-        }
+        points.splice(0, Math.max(0, points.length - MAX_POINTS));
 
         if (points.length > 1) {
             ctx.beginPath();
-
             ctx.strokeStyle = "#c72b2b";
             ctx.lineWidth = 10;
             ctx.lineCap = "round";
